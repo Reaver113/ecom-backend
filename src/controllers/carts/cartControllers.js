@@ -1,3 +1,5 @@
+const Cart = require("../../models/cart");
+
 const carts = [
 	{
 		user_id: 1,
@@ -27,22 +29,29 @@ const carts = [
 	}
 ]
 
-function getCarts() {
+async function getCarts() {
+	const carts = await Cart.find()
 	return carts
 }
 
-function getCartById(cartId) {
-	const cart = carts[cartId]
+async function getCartById(cartId) {
+	const cart = await Cart.findById(cartId)
 	return cart
 }
 
-function getCartByUserId(userId) {
-	const cartByUserId = carts.find((cart) => cart.user_id == userId)
+async function getCartByUserId(userId) {
+	const cartByUserId = await Cart.findOne({user_id: userId})
 	return cartByUserId
+}
+
+async function getCartByUserIdWithProductInfo(userId) {
+	const cartByUserIdWithProductInfo = await Cart.findOne({user_id: userId}).populate("products.product")
+	return cartByUserIdWithProductInfo
 }
 
 module.exports = {
 	getCarts,
 	getCartById,
-	getCartByUserId
+	getCartByUserId,
+	getCartByUserIdWithProductInfo
 }
