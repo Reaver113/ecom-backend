@@ -1,3 +1,4 @@
+const Product = require("../../models/product")
 const products = [
 	{
 		title: "Bag",
@@ -19,20 +20,22 @@ const products = [
 	},
 ]
 
-function getProducts() {
+async function getProducts() {
+	const products = await Product.find()
 	return products
 }
 
-function getProductById(productId) {
-	const product = products[productId]
-	return product
+async function getProductById(productId) {
+	try {
+		const product = await Product.findById(productId)
+		return product
+	} catch(err) {
+		console.log(err)
+	}
 }
 
-function createProduct(product) {
-	const newProduct = {
-		id: 4,
-		...product,
-	}
+async function createProduct(product) {
+	const newProduct = await Product.create(product)
 	return newProduct
 }
 
