@@ -2,6 +2,7 @@ const express = require("express")
 const mongooose = require("mongoose")
 const productRouter = require("./controllers/products/productRoutes")
 const cartRouter = require("./controllers/carts/cartRoutes")
+const userRouter = require("./controllers/users/userRoutes")
 
 const app = express()
 
@@ -17,6 +18,7 @@ app.get("/", (request, response) => {
 
 app.use("/products", productRouter)
 app.use("/carts", cartRouter)
+app.use("/users", userRouter)
 
 
 app.listen(PORT, () => {
