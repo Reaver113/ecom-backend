@@ -8,7 +8,7 @@ function auth(request, response, next) {
 	}
 	try {
 		const payload = jwt.verify(token, "secret")
-		request.userId = payload.id
+		request.payload = payload
 		next()
 	} catch(err) {
 		console.log(err)
