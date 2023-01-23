@@ -1,4 +1,5 @@
 const express = require("express")
+const mongooose = require("mongoose")
 const productRouter = require("./controllers/products/productRoutes")
 const cartRouter = require("./controllers/carts/cartRoutes")
 
@@ -20,4 +21,8 @@ app.use("/carts", cartRouter)
 
 app.listen(PORT, () => {
 	console.log("Server Started")
+	mongooose.set("strictQuery", false)
+	mongooose.connect("mongodb://127.0.0.1:27017/ecommerce", () => {
+		console.log("Database Connnected")
+	})
 })
